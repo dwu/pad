@@ -1,0 +1,26 @@
+{
+  "name": "pad",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.2",
+    "vite": "^5.3.2"
+  },
+  "dependencies": {
+    "@types/codemirror": "^5.60.15",
+    "@types/uuid": "^10.0.0",
+    "@types/vkbeautify": "^0.99.4",
+    "codemirror": "^6.0.1",
+    "jwt-decode": "^4.0.0",
+    "ninja-keys": "^1.2.2",
+    "sql-formatter": "^15.3.2",
+    "uuid": "^10.0.0",
+    "vkbeautify": "^0.99.3"
+  }
+}

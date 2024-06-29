@@ -1,0 +1,77 @@
+:root {
+  font-family: sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --sidebar-width: 200px;
+  --editor-margin: 15px;
+}
+
+.main {
+  margin-left: var(--sidebar-width);
+}
+
+.sidenav {
+  background-color: #eee;
+  height: 100%;
+  left: 0;
+  overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  width: var(--sidebar-width);
+  z-index: 1;
+}
+
+.accordion {
+  font-size: 10pt;
+  background-color: #eee;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  outline: none;
+  padding: 10px;
+  text-align: left;
+  width: 100%;
+}
+
+.accordionitem {
+  font-size: 10pt;
+  background-color: #ddd;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 10px 10px 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  color: #888;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+.editor {
+  font-size: 10pt;
+  flex-grow: 1;
+  width: calc(100vw - var(--sidebar-width) - var(--editor-margin));
+}
