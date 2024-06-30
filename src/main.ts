@@ -3,7 +3,7 @@ import "./style.css"
 import { FilterAction } from "./filter-action.ts"
 import { CommandPalette } from "./command-palette.ts"
 import { Editor } from "./editor.ts"
-import { compactBlanks, epochConvert, htmlDecode, htmlEncode, insertBlanksAfterNCharacters, removeBackslashes, removeBlanks, removeLinebreaks, trimLines } from "./filter-action.ts"
+import { compactBlanks, epochConvert, htmlDecode, htmlEncode, insertBlanksAfterNCharacters, removeBackslashes, removeBlanks, joinLines, removeLinebreaks, blanksToLinebreaks, trimLines } from "./filter-action.ts"
 
 import { css, cssmin, json, jsonmin, sqlmin, xml, xmlmin } from "vkbeautify"
 import { jwtDecode } from "jwt-decode"
@@ -64,10 +64,22 @@ const actions = [
 
     // Text
     new FilterAction({
+        elementId: "text-join-lines",
+        sectionTitle: "Text",
+        actionTitle: "Join lines",
+        filterFn: joinLines
+    }),
+    new FilterAction({
         elementId: "text-remove-eol",
         sectionTitle: "Text",
-        actionTitle: "Remove EOL",
+        actionTitle: "Remove line breaks",
         filterFn: removeLinebreaks
+    }),
+    new FilterAction({
+        elementId: "text-blanks-to-nl",
+        sectionTitle: "Text",
+        actionTitle: "Blanks to line breaks",
+        filterFn: blanksToLinebreaks
     }),
     new FilterAction({
         elementId: "text-trim-lines",

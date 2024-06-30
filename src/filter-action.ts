@@ -42,6 +42,17 @@ export function removeLinebreaks(s: string): string {
     return s;
 }
 
+export function joinLines(s: string): string {
+    s = s.replace(new RegExp('\\r', 'g'), '');
+    s = s.replace(new RegExp('\\n', 'g'), ' ');
+    return s;
+}
+
+export function blanksToLinebreaks(s: string): string {
+    s = s.replace(new RegExp(' ', 'g'), '\n');
+    return s;
+}
+
 export function trimLines(s: string): string {
     s = s.replace(new RegExp('\\s*\\r\\n\\s*', 'g'), '\r\n');
     s = s.replace(new RegExp('\\s*\\n\\s*', 'g'), '\n');
