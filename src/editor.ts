@@ -59,6 +59,10 @@ export class Editor {
     }
 
     applyFilter(filterFn: (text: string) => string) {
+        // don't apply filters on multiple selections
+        if (this.editorView.state.selection.ranges.length > 1)
+            return
+
         // select all if nothing selected
         if (this.editorView.state.selection.ranges.length == 1 &&
             this.editorView.state.selection.ranges[0].from == this.editorView.state.selection.ranges[0].to) {
