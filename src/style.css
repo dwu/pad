@@ -10,6 +10,11 @@
   --editor-margin: 15px;
 }
 
+@media (prefers-color-scheme: dark) {
+  html { filter: invert(100%); }
+  img { filter: invert(100%); }
+}
+
 .main {
   margin-left: var(--sidebar-width);
 }
