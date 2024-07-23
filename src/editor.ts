@@ -74,6 +74,10 @@ export class Editor {
                 range.from,
                 range.to)
 
+            // do nothing if no text is selected
+            if (selectedText.length == 0)
+                return
+
             let replacement: string = filterFn(selectedText)
             this.editorView.dispatch(this.editorView.state.replaceSelection(replacement))
         })
