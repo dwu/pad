@@ -1,4 +1,5 @@
 import { CommandPalette } from "./command-palette"
+import { Storage } from "./storage"
 
 import { indentWithTab } from "@codemirror/commands"
 import { Compartment } from "@codemirror/state"
@@ -10,6 +11,7 @@ export class Editor {
     lineWrapping: boolean
     editorElement: HTMLElement
     editorView: EditorView
+    storage?: Storage
     commandPalette?: CommandPalette
 
     constructor() {
@@ -52,6 +54,25 @@ export class Editor {
             extensions: editorExtensions,
             parent: this.editorElement,
         })
+
+        if (window.localStorage) {
+            // store content on pagehide and restore when opened
+            let unloadEvent: string
+            if ('onpagehide' in window) {
+                unloadEvent = 'pagehide';
+            } else {
+                unloadEvent = 'beforeunload';
+            }
+
+            this.storage = new Storage()
+            let text = this.storage.get();
+            if (text) {
+                this.setText(text);
+            }
+            window.addEventListener(unloadEvent, () => {
+                this.storage?.set(this.getText())
+            })
+        }
     }
 
     focus() {
@@ -81,6 +102,15 @@ export class Editor {
             let replacement: string = filterFn(selectedText)
             this.editorView.dispatch(this.editorView.state.replaceSelection(replacement))
         })
+    }
+
+    getText(): string {
+        return this.editorView.state.doc.toString();
+    }
+
+    setText(text: string) {
+        this.editorView.dispatch(this.editorView.state.update({ selection: { anchor: 0, head: this.editorView.state.doc.length }, userEvent: "select" }))
+        this.editorView.dispatch(this.editorView.state.replaceSelection(text))
     }
 
 }
