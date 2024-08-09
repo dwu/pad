@@ -99,8 +99,12 @@ export class Editor {
             if (selectedText.length == 0)
                 return
 
-            let replacement: string = filterFn(selectedText)
-            this.editorView.dispatch(this.editorView.state.replaceSelection(replacement))
+            try {
+                let replacement: string = filterFn(selectedText)
+                this.editorView.dispatch(this.editorView.state.replaceSelection(replacement))
+            } catch (error: any) {
+                alert(error.message);
+            }
         })
     }
 
