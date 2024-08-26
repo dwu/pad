@@ -10,9 +10,14 @@
   --editor-margin: 15px;
 }
 
+/* Required for dark mode; transparent background color is not inverted */
+* {
+  background: #fff;
+}
+
 @media (prefers-color-scheme: dark) {
-  html { filter: invert(100%); }
-  img { filter: invert(100%); }
+  html { filter: invert(1); }
+  img { filter: invert(1); }
 }
 
 .main {
@@ -65,8 +70,12 @@
   content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
 
-.active, .accordion:hover {
+.active {
   background-color: #ccc;
+}
+
+.accordion:hover, .accordionitem:hover {
+  background-color: #bbb;
 }
 
 .panel {
