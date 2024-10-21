@@ -89,3 +89,8 @@
   flex-grow: 1;
   width: calc(100vw - var(--sidebar-width) - var(--editor-margin));
 }
+
+.ͼ4 .cm-line ::selection,
+.ͼ4 .cm-line::selection {
+  background-color: #ccc !important;
+}
