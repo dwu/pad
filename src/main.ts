@@ -128,25 +128,25 @@ const actions = [
     new FilterAction({
         elementId: "format-json",
         sectionTitle: "Format",
-        actionTitle: "JSON",
+        actionTitle: "Format JSON",
         filterFn: (text: string) => { return json(text, 2) }
     }),
     new FilterAction({
         elementId: "format-xml",
         sectionTitle: "Format",
-        actionTitle: "XML",
+        actionTitle: "Format XML",
         filterFn: (text: string) => { return xml(text, 2) }
     }),
     new FilterAction({
         elementId: "format-sql",
         sectionTitle: "Format",
-        actionTitle: "SQL",
+        actionTitle: "Format SQL",
         filterFn: (text: string) => { return sqlformat(text, { "tabWidth": INDENT }) }
     }),
     new FilterAction({
         elementId: "format-CSS",
         sectionTitle: "Format",
-        actionTitle: "CSS",
+        actionTitle: "Format CSS",
         filterFn: (text: string) => { return css(text, 2) }
     }),
 
@@ -154,25 +154,25 @@ const actions = [
     new FilterAction({
         elementId: "minify-json",
         sectionTitle: "Minify",
-        actionTitle: "JSON",
+        actionTitle: "Minify JSON",
         filterFn: jsonmin
     }),
     new FilterAction({
         elementId: "minify-xml",
         sectionTitle: "Minify",
-        actionTitle: "XML",
+        actionTitle: "Minify XML",
         filterFn: xmlmin
     }),
     new FilterAction({
         elementId: "minify-sql",
         sectionTitle: "Minify",
-        actionTitle: "SQL",
+        actionTitle: "Minify SQL",
         filterFn: sqlmin
     }),
     new FilterAction({
         elementId: "minify-css",
         sectionTitle: "Minify",
-        actionTitle: "CSS",
+        actionTitle: "Minify CSS",
         filterFn: cssmin
     }),
 
@@ -180,7 +180,7 @@ const actions = [
     new FilterAction({
         elementId: "convert-epoch-local",
         sectionTitle: "Convert",
-        actionTitle: "Epoch -> Localtime",
+        actionTitle: "Convert Epoch -> Localtime",
         filterFn: epochConvert
     }),
 ]
@@ -200,7 +200,7 @@ actions.forEach((action) => {
         section.classList.add("accordion")
         section.innerText = action.sectionTitle
         sidenav.appendChild(section)
-        section.addEventListener("click", function(this: any) {
+        section.addEventListener("click", function (this: any) {
             this.classList.toggle("active")
             var panel = this.nextElementSibling
             if (panel.style.display === "block") {
