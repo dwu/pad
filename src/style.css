@@ -92,13 +92,18 @@
   overflow: hidden;
 }
 
-.editor {
+.cm-editor {
   font-size: 10pt;
   flex-grow: 1;
+  height: calc(100vh - var(--editor-margin));
   width: calc(100vw - var(--sidebar-width) - var(--editor-margin));
 }
 
-.ͼ4 .cm-line ::selection,
+.cm-scroller {
+  overflow: auto;
+  max-height: 100%;
+}
+
 .ͼ4 .cm-line::selection {
   background-color: #ccc !important;
 }
