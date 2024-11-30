@@ -1,6 +1,7 @@
 import "./style.css"
 
 import { FilterAction } from "./filter-action.ts"
+import { InsertAction } from "./insert-action.ts"
 import { CommandPalette } from "./command-palette.ts"
 import { Editor } from "./editor.ts"
 import { compactBlanks, epochConvert, htmlDecode, htmlEncode, insertBlanksAfterNCharacters, removeBackslashes, removeBlanks, joinLines, removeLinebreaks, blanksToLinebreaks, trimLines } from "./filter-action.ts"
@@ -183,6 +184,14 @@ const actions = [
         actionTitle: "Convert Epoch -> Localtime",
         filterFn: epochConvert
     }),
+
+    // Insert UUID
+    new InsertAction({
+        elementId: "insert-uuid",
+        sectionTitle: "Insert",
+        actionTitle: "Insert UUIDv4",
+        insertFn: () => { return crypto.randomUUID() }
+    }),
 ]
 
 const editor = new Editor()
@@ -221,6 +230,10 @@ actions.forEach((action) => {
     button.id = action.elementId
     button.classList.add("accordionitem")
     button.innerText = action.actionTitle
-    button.addEventListener("click", () => editor.applyFilter(action.filterFn))
+    if (action instanceof FilterAction) {
+        button.addEventListener("click", () => editor.applyFilter(action.filterFn))
+    } else if (action instanceof InsertAction) {
+        button.addEventListener("click", () => editor.insertText(action.insertFn))
+    }
     currentPanel.appendChild(button)
 })

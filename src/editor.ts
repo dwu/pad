@@ -79,6 +79,16 @@ export class Editor {
         this.editorView.focus()
     }
 
+    insertText(insertFn: () => string) {
+        // don't apply filters on multiple selections
+        if (this.editorView.state.selection.ranges.length > 1)
+            return
+
+        const insertedText = insertFn()
+        this.editorView.dispatch({ changes: { from: this.editorView.state.selection.ranges[0].from, insert: insertedText } })
+        this.editorView.dispatch({ selection: { anchor: this.editorView.state.selection.ranges[0].from + insertedText.length, head: this.editorView.state.selection.ranges[0].from + insertedText.length } })
+    }
+
     applyFilter(filterFn: (text: string) => string) {
         // don't apply filters on multiple selections
         if (this.editorView.state.selection.ranges.length > 1)
@@ -90,26 +100,24 @@ export class Editor {
             this.editorView.dispatch(this.editorView.state.update({ selection: { anchor: 0, head: this.editorView.state.doc.length }, userEvent: "select" }))
         }
 
-        this.editorView.state.selection.ranges.forEach((range) => {
-            const selectedText = this.editorView.state.sliceDoc(
-                range.from,
-                range.to)
+        const selectedText = this.editorView.state.sliceDoc(
+            this.editorView.state.selection.ranges[0].from,
+            this.editorView.state.selection.ranges[0].to)
 
-            // do nothing if no text is selected
-            if (selectedText.length == 0)
-                return
+        // do nothing if no text is selected
+        if (selectedText.length == 0)
+            return
 
-            try {
-                let replacement: string = filterFn(selectedText)
-                this.editorView.dispatch(this.editorView.state.replaceSelection(replacement))
-            } catch (error: any) {
-                alert(error.message);
-            }
-        })
+        try {
+            let replacement: string = filterFn(selectedText)
+            this.editorView.dispatch(this.editorView.state.replaceSelection(replacement))
+        } catch (error: any) {
+            alert(error.message)
+        }
     }
 
     getText(): string {
-        return this.editorView.state.doc.toString();
+        return this.editorView.state.doc.toString()
     }
 
     setText(text: string) {

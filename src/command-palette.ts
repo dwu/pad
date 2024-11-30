@@ -1,6 +1,7 @@
 import "ninja-keys"
 
 import { FilterAction } from "./filter-action.ts"
+import { InsertAction } from "./insert-action.ts"
 import { Editor } from "./editor.ts"
 
 export class CommandPalette {
@@ -8,7 +9,7 @@ export class CommandPalette {
     ninja: any
     editor: Editor
 
-    constructor(actions: FilterAction[], editor: Editor) {
+    constructor(actions: (FilterAction | InsertAction)[], editor: Editor) {
         this.editor = editor
         this.ninja = document.querySelector("ninja-keys")!
         this.ninja.data = actions.map((e) => (
@@ -17,7 +18,11 @@ export class CommandPalette {
                 title: e.actionTitle,
                 section: e.sectionTitle,
                 handler: () => {
-                    this.editor.applyFilter(e.filterFn)
+                    if (e instanceof FilterAction) {
+                        this.editor.applyFilter(e.filterFn);
+                    } else if (e instanceof InsertAction) {
+                        this.editor.insertText(e.insertFn);
+                    }
                 }
             }
         ))
